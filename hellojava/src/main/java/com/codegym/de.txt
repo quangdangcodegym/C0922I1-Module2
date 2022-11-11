@@ -1,0 +1,4 @@
+Nhập vào 1 số: number = 20
+In ra cac so tu 1-number
+Tinh tong cac so chan tu 1-number
+Tinh tong 5 so chan dau tien từ 1-number
