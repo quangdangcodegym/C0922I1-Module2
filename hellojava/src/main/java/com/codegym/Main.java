@@ -25,10 +25,14 @@ public class Main {
         System.out.println(printArrayTwoWay(arr));
 
 
+        sum(2,3);
 
 
     }
 
+    public static int sum(int a, int b) {
+        return a + b;
+    }
     public static String printArrayTwoWay(int[][] arr) {
         String str = "";
         for (int i = 0; i < arr.length; i++) {
