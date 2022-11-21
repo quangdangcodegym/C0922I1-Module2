@@ -1,6 +1,4 @@
-package com.codegym.comparatoroop;
-
-import java.util.Comparator;
+package com.codegym.comparatorjava;
 
 public abstract class Geometric {
     private String color = "white";

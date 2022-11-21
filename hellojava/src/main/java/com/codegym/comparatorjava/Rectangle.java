@@ -1,6 +1,6 @@
-package com.codegym.comparatoroop;
+package com.codegym.comparatorjava;
 
-public class Rectangle extends Geometric{
+public class Rectangle extends Geometric implements Comparable<Rectangle>{
 
     private double  width;
     private double height;
@@ -36,4 +36,15 @@ public class Rectangle extends Geometric{
     }
 
 
+    @Override
+    public int compareTo(Rectangle o) {
+        if (this.getArea() > o.getArea()) {
+            return 1;
+        }else {
+            if (this.getArea() == o.getArea()) {
+                return 0;
+            }
+            return -1;
+        }
+    }
 }

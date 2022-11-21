@@ -1,13 +1,10 @@
 package com.codegym.comparatoroop;
 
 import java.util.Arrays;
+import java.util.Comparator;
 
 public class App {
     public static void main(String[] args) {
-
-
-
-
 
     }
     public static void hieuvethuattoansapxep(){
@@ -48,6 +45,10 @@ public class App {
     }
 
     public static void sudungcomparablecoban() {
+
+
+
+
         Geometric[] geometrics = new Geometric[5];
 
         geometrics[0] = new Rectangle(4, 6);
@@ -61,13 +62,23 @@ public class App {
             for (int j = i + 1; j < geometrics.length; j++) {
                 Rectangle r1 = (Rectangle) geometrics[i];
                 Rectangle r2 = (Rectangle) geometrics[j];
-                if (r1.compare(r2)==1) {
-                    Geometric temp = geometrics[i];
-                    geometrics[i] = geometrics[j];
-                    geometrics[j] = temp;
-                }
+
             }
         }
         System.out.println(Arrays.toString(geometrics));
+
+    }
+    public static void sudungcomparablecobanSAICUAJAVA() {
+        Geometric[] geometrics = new Geometric[5];
+
+        geometrics[0] = new Rectangle(4, 6);
+        geometrics[1] = new Rectangle(1, 6);
+        geometrics[2] = new Rectangle(3, 6);
+        geometrics[3] = new Rectangle(1, 1);
+        geometrics[4] = new Rectangle(2, 2);
+
+        System.out.println(Arrays.toString(geometrics));
+        System.out.println(Arrays.toString(geometrics));
+
     }
 }
