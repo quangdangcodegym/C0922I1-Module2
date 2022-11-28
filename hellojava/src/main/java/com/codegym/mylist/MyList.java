@@ -99,18 +99,6 @@ public class MyList<E> {
 //
 //        List<String> c;
 
-        Integer c = 5;
-        Integer d = 5;
-
-        System.out.println(c.hashCode());
-        System.out.println(d.hashCode());
-
-
-
-
-
-
-
 
 
     }
