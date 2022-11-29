@@ -1,53 +1,27 @@
 package com.codegym.reviews4;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
 
 public class AppMain {
-    public static List<Product> products;
-    public static List<Category> categories;
+    public static final int ACTIONEDIT = 2;
+    private static final int ACTIONADD = 1;
 
-    public static Category findCategoryById(int id) {
-        for (Category c : categories) {
-            if (c.getId() == id) {
-                return c;
-            }
-        }
-        return null;
-    }
+
+    private CategoryService categoryService;
+    private ProductService productService;
+
+
+
+
     public AppMain() {
-        categories = new ArrayList<>();
-        categories.add(new Category(1, "Apple"));
-        categories.add(new Category(2, "Samsung"));
-
-        products = new ArrayList<>();
-        // long id, String name, double price, int quantity, int idCategory)
-        Product product1 = new Product(1L, "Iphone 11", 1000.0, 10, 1);
-        Product product2 = new Product(2L, "Iphone 12", 1200.0, 10, 1);
-        Product product3 = new Product(3L, "Iphone 13", 1300.0, 10, 1);
-        Product product4 = new Product(4L, "Iphone 14", 1400.0, 10, 1);
-        products.add(product1);
-
-        products.add(new Product(5L, "Samsung Galaxy", 1500.0, 10, 2) );
+        categoryService = new CategoryService();
+        productService = new ProductService();
+        productService.init();
+        categoryService.init();
     }
-
-    public List<Product> getProducts() {
-        return products;
-    }
-
-    public void setProducts(List<Product> products) {
-        this.products = products;
-    }
-
-    public List<Category> getCategories() {
-        return categories;
-    }
-
-    public void setCategories(List<Category> categories) {
-        this.categories = categories;
-    }
-
     private static Scanner scanner = new Scanner(System.in);
     public static void main(String[] args) {
 
@@ -59,6 +33,8 @@ public class AppMain {
             System.out.println("Sửa sản phẩm -->:               2");
             System.out.println("Xóa sản phẩm -->:               3");
             System.out.println("Xem danh sách sản phẩm -->:     4");
+            System.out.println("Sap xep san pham -->:           5");
+            System.out.println("Tìm kiếm san pham -->:          6");
             int menuAction = Integer.parseInt(scanner.nextLine());
             switch (menuAction) {
                 case 1:
@@ -70,7 +46,15 @@ public class AppMain {
                     checkMenuAction = appMain.checkContinueAction();
                     break;
                 case 4:
-                    appMain.showProductsView();
+                    appMain.showProductsView(appMain.productService.getProducts());
+                    checkMenuAction = appMain.checkContinueAction();
+                    break;
+                case 5:
+                    appMain.sortProductView();
+                    checkMenuAction = appMain.checkContinueAction();
+                    break;
+                case 6:
+                    appMain.searchProductView();
                     checkMenuAction = appMain.checkContinueAction();
                     break;
                 default:
@@ -79,6 +63,100 @@ public class AppMain {
                     break;
             }
         } while (checkMenuAction);
+    }
+
+    private void searchProductView() {
+        // chỉ làm tìm kiếm theo tên
+        System.out.println("Tìm kiếm theo tên:");
+        String nameSearch = scanner.nextLine();
+
+        List<Product> productResults = productService.searchByName(nameSearch);
+
+        showProductsView(productResults);
+    }
+
+    private void sortProductView() {
+
+        boolean menuAction = false;
+        do{
+
+            System.out.println("Bạn sắp xếp theo: ");
+            System.out.println("Sửa Giá:-->         1");
+            System.out.println("Sửa Tên:-->         2");
+            System.out.println("Sửa Số lượng:-->    3");
+            int actionMenu = Integer.parseInt(scanner.nextLine());
+            switch (actionMenu) {
+                case 1:
+                    sortByPrice();
+                    break;
+                case 2:
+                    sortByName();
+                    break;
+                case 3:
+                    break;
+                default:
+                    System.out.println("Nhập sai. Vui lòng nhập lai");
+                    break;
+            }
+        }while (menuAction);
+
+
+
+    }
+
+    private void sortByName() {
+        List<Product> products = productService.getProducts();
+        Comparator<Product> comparatorBy;
+        boolean menuSortAction = false;
+        do{
+            menuSortAction = false;
+            // Thấy có trùng lặp code cần tối ưu
+            System.out.println("Chọn 1 - Tăng dần theo tên");
+            System.out.println("Chọn 2 - Giảm dần theo tên");
+            int menuSort = Integer.parseInt(scanner.nextLine());
+            switch (menuSort) {
+                case 1:
+                    comparatorBy = new CompartorNameASC();
+                    products.sort(comparatorBy);
+                    showProductsView(productService.getProducts());
+                    break;
+                case 2:
+                    comparatorBy = new ComparatorNameDESC();
+                    products.sort(comparatorBy);
+                    showProductsView(productService.getProducts());
+                    break;
+                default:
+                    menuSortAction = true;
+                    break;
+            }
+        }while (menuSortAction);
+    }
+
+    private void sortByPrice() {
+        List<Product> products = productService.getProducts();
+        Comparator<Product> comparatorBy;
+        boolean menuSortAction = false;
+        do{
+            menuSortAction = false;
+            System.out.println("Chọn 1 - Tăng dần theo giá");
+            System.out.println("Chọn 2 - Giảm dần theo giá");
+            int menuSort = Integer.parseInt(scanner.nextLine());
+            switch (menuSort) {
+                case 1:
+                    comparatorBy = new ComparatorPriceASC();
+                    products.sort(comparatorBy);
+                    showProductsView(productService.getProducts());
+                    break;
+                case 2:
+                    comparatorBy = new ComparatorPriceDESC();
+                    products.sort(comparatorBy);
+                    showProductsView(productService.getProducts());
+                    break;
+                default:
+                    menuSortAction = true;
+                    break;
+            }
+        }while (menuSortAction);
     }
 
     public boolean checkContinueAction() {
@@ -92,21 +170,21 @@ public class AppMain {
         }
         return false;
     }
-    public void showProductsView() {
-        for (Product p : getProducts()) {
+    public void showProductsView(List<Product> products) {
+        for (Product p : products) {
             System.out.println(p);
         }
     }
 
-    public double inputPrice(int type) {
+    public double inputPrice(ActionInput type) {
         double price = 0.0;
         boolean checkInputPrice = false;
         do {
             switch (type) {
-                case 1:
+                case ADD:
                     System.out.println("Nhập giá bạn muốn thêm: ");
                     break;
-                case 2:
+                case EDIT:
                     System.out.println("Nhập giá bạn muốn sửa: ");
                     break;
             }
@@ -123,13 +201,13 @@ public class AppMain {
     public void addProductView() {
         System.out.println("Nhập tên: ");
         String name = scanner.nextLine();
-        double price = inputPrice(1);
+        double price = inputPrice(ActionInput.ADD);
 
         System.out.println("Nhập số lượng");
         int quantity = Integer.parseInt(scanner.nextLine());
         System.out.println("Nhập ID của danh mục");
-        for (int i = 0; i < categories.size(); i++) {
-            System.out.println(categories.get(i));
+        for (int i = 0; i < categoryService.getCategories().size(); i++) {
+            System.out.println(categoryService.getCategories().get(i));
         }
         int idCategory = Integer.parseInt(scanner.nextLine());
         Product product  = new Product();
@@ -140,8 +218,8 @@ public class AppMain {
         product.setIdCategory(idCategory);
 
 
-        AppMain.products.add(product);
-        showProductsView();
+        productService.addProduct(product);
+        showProductsView(productService.getProducts());
     }
     public void editProductView() {
         System.out.println("Nhập ID sản phẩm: ");
@@ -153,13 +231,13 @@ public class AppMain {
         System.out.println("Sửa số lượng:-->    3");
 
         // Về làm chỗ này, do while đó nha
-        double price = inputPrice(2);
-        for (Product p : getProducts()) {
+        double price = inputPrice(ActionInput.EDIT);
+        for (Product p : productService.getProducts()) {
             if (p.getId() == id) {
                 p.setPrice(price);
             }
         }
-        showProductsView();
+        showProductsView(productService.getProducts());
 
     }
 }

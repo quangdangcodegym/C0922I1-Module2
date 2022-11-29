@@ -58,23 +58,25 @@ public class Product {
         this.idCategory = idCategory;
     }
 
+    public void updateProduct(Product product) {
+        this.setName(product.getName());
+        this.setPrice(product.getPrice());
+        this.setQuantity(product.getQuantity());
+        this.setIdCategory(product.getIdCategory());
+    }
+
     @Override
     public String toString() {
 
 
-        Category c = AppMain.findCategoryById(this.idCategory);
+        Category c = CategoryService.findCategoryById(this.idCategory);
         String categoryName = "";
         if (c != null) {
             categoryName = c.getName();
         }
+
+
         return String.format("%-10s %-20s %-10s %-10s %-10s",
                 this.id, this.name, this.price, this.quantity, categoryName);
-        /*return "Product{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", price=" + price +
-                ", quantity=" + quantity +
-                ", idCategory=" + idCategory +
-                '}';*/
     }
 }
