@@ -1,0 +1,145 @@
+@All: Lớp là gì? Đối tượng là gì?  Tìm hiểu Access modifier public, private
+@Lê Bá Lộc
+& N1:  cài đặt lại Class Person bài thi thực hành MD1 & Thuộc tính & Phương Thức là gì? + demo
+N2:  Contructor + demo & Contructor nhiều tham số có phải overloading ko?
+
+@Lê Hữu Tiên
+&N3:  demo Class Animal & Getter & Setter & vì sao cần có  nó?
+N4: Từ khóa this + Tính đóng gói là gì? Tính đóng gói & Che giấu dữ liệu khác nhau như thế nào?
+Anh 
+@Minh Hiếu
+Nghiên cứu UML = phần mềm Star UML (edited) 
+
+Bài tập: Person có thuộc tính "age" cài đặt get & set đảm bảo tuổi ko được âm.
+
+@Lê Hữu Tiên
+-N1,2: static + demo & khai niệm static & non static + Package
+N3: Nested class & Inner class
+N4: Bộ nhớ Heap & Stack (edited) 
+
+N1,N2, : Kế Thừa + Demo &  Method Overriding + demo
+N3, N4:  từ khóa instanceOf  & Đa Hinh + Ép kiểu +Demo
+@Lê Bá Lộc
+từ khóa Super + Demo
+@Hữu Quý Nguyễn
+
+@Lê Hữu Tiên
+Từ khóa final sử dụng cho class & phương thúc + demo
+@Minh Hiếu
+Phương Thức toString + từ khóa Super + Demo
+
+@Minh Hiếu
+
+@Lý Thanh Tùng
+
+@Hà Nguyễn
+Tại sao Java không cho phép đa kế thừa.
+
+https://shareprogramming.net/da-hinhpolymorphism-trong-java/
+https://ngockhuong.com/java/xu-ly-troi-lenh-khi-dung-scanner-nhap-du-lieu-trong-java.html
+
+
+All: Trường hợp nào sử dụng Abstract
+N1: https://nguyenvanhieu.vn/lop-abstract-trong-java/
+N2: https://laptrinhvienjava.com/abstract-class-trong-java/
+N3:https://viettuts.vn/java/abstract-class-trong-java
+N4:https://cafedev.vn/tu-hoc-java-class-truu-tuongabstract-va-phuong-thuc-truu-tuong-trong-java/
+@Hữu Quý Nguyễn
+ & 
+@Lê Hữu Tiên
+ https://vncoder.vn/bai-viet/abstract-class-lop-truu-tuong-la-gi-abstract-method-phuong-thuc-truu-tuong-trong-la-gi-cac-vi-du-minh-hoa-trong-java
+@Lý Thanh Tùng
+ 
+@Hà Nguyễn
+ 
+@Minh Hiếu
+ Trường hợp nào sử dụng Interface + demo nhỏ
+ 
+ https://viblo.asia/p/so-sanh-interface-va-abstract-trong-lap-trinh-huong-doi-tuong-63vKjpk6l2R
+ https://shareprogramming.net/tong-hop-bai-tap-lap-trinh-huong-doi-tuong-trong-java/#Bai_13
+ 
+ @All học hết Clean Code + Áp dụng clean code làm bài tập bên dưới
+https://james.codegym.vn/mod/assign/view.php?id=9195
+
+All: Cấu trúc dữ liệu là gì? Collection là gì?
+@N1,N2: ArrayList & LinkedList + Demo nhỏ
+Đặc điểm của tùng loại. Khi nào thì sử dụng?
+N3: Generic +  LinkedList + Demo
+N4: Set + Demo
+Làm thế nào để Set/HashSet đảm bảo các phần tử không trùng lặp?
+https://shareprogramming.net/lam-the-nao-de-set-hashset-dam-bao-cac-phan-tu-khong-trung-lap/
+N4: So sánh 2 hình của class Circle xem hình nào lớn hơn? (Comparable)
+
+https://www.youtube.com/watch?v=FOdevD5rfcA&t=67s
+https://www.youtube.com/watch?v=8gRhZzma4ws
+
+https://github.com/fxphunguyen/Module2/tree/main/danh_sach
+https://github.com/QuangDunggh/BaiTap-Super-ArrayList/blob/master/src/MyList.java
+https://github.com/truongnhat149/_module2/tree/main/src/JAMES/dsa_list/LinkedList
+
+https://www.youtube.com/watch?v=ZaG5n_6ehIw
+https://www.youtube.com/watch?v=OJz-DuvFd24
+https://www.youtube.com/watch?v=XduwHI8bbcA
+
+Sự khác nhau giữa == và equals trong Java - Deft Blog
+https://shareprogramming.net/su-khac-nhau-giua-va-equals-trong-java/
+
+Mối quan hệ giữa equals() và hashCode() trong Java - Deft Blog
+https://shareprogramming.net/moi-quan-he-giua-equals-va-hashcode-trong-java/
+
+
+Bài cũ làm sao để cho 2 con Animal sống lại đánh nhau. (bằng nhau)
+Làm sao để Set luu 2 con Animal vừa chết. Set chỉ lưu 1 con (edited) 
+2:23
+Nhiệm vụ ngày mai. Mình học chiều nhé
+@All Comparable & Comparator  What, When + Demo
+N1: Triển khai Stack sử dụng mảng (push() và pop())
+N2: Triển khai Stack sử dụng ArrayList (push() và pop())
+N3: Triển khai Stack sử dụng mảng (push() và pop())
+N4: Triển khai Queue sử dụng :LinkedList(offer() & peek)
+@Lý Thanh Tùng
+
+Đảo ngược chuổi sử dụng Stack
+@Hà Nguyễn
+ Chuyển thập phân sang nhị phân  Stack (Jame)
+N7: Kiểm tra dấu ngoặc trong biểu thức sử dụng Stack
+
+
+@channel Mình học buổi chiều 1h30
+Tất cả các bạn hoàn thành xong bài Quản lý sản phẩm.
+Nghiên cứu về Regex
+https://regexr.com/
+N1:tập trung hoàn thành Quản lý sản phẩm
+N2: Dấu phân cách hàng nghìn & Xác thực số điện thoại
+N3: Xác thực ISBN & Kiểm tra mã bưu điện
+N4: Số thẻ tín dụng & Tìm thuộc tính CSS
+N5: URL trang cá nhân Facebook & Bóc tách giá
+
+Nhiệm vụ chiều nay
+@ALL phân biệt Unchecked Exceptions & Checked Exceptions
+Demo nhỏ try catch
+Hoàn thành UML của case study
+
+Nhiệm vụ ngày mai. Bài 16: Text File
+@All InputStream và outputStream trong java
+@All CSV file + dòng Stream(học trong Slide) + demo nhỏ đọc & ghi text file.
+@Minh Hiếu
+ Demo +Giới thiệu hàm trong file
+@Minh Hiếu
+, 
+@Lý Thanh Tùng
+ 
+@Hà Nguyễn
+ Buffer là gì & demo nhỏ (edited) 
+ 
+ @channel @All Đổi thập phân sang nhị phân + demo đọc ghi file nhị phân
+Đổi các số 15| 256 | 257  sang nhị phần
+1 Byte = ? bit
+https://www.wikihow.vn/%C4%90%E1%BB%95i-t%E1%BB%AB-S%E1%BB%91-Th%E1%BA%ADp-ph%C3%A2n-sang-Nh%E1%BB%8B-ph%C3%A2n
+@All Đổi nhị phân sang thập phân.
+https://www.wikihow.vn/Gi%E1%BA%A3i-m%C3%A3-s%E1%BB%91-nh%E1%BB%8B-ph%C3%A2n (edited) 
+
+
+@channel
+@All Tìm hiểu về multi Multi-Tasking & Multi-Threading
+@All Enum

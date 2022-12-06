@@ -6,7 +6,7 @@ public class MainCharacterFile {
     public static void main(String[] args) {
         try {
 
-            FileReader fileReader = new FileReader("D:\\CODEGYM\\CODEGYM\\Module2\\C0922I1\\hellojava\\data\\c10.txt");
+            FileReader fileReader = new FileReader("./data/c10.txt");
             BufferedReader bufferedReader = new BufferedReader(fileReader);
 
             char[] cbuff = new char[5];
