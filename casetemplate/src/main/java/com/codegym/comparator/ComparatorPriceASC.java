@@ -1,6 +1,6 @@
 package com.codegym.comparator;
 
-import com.codegym.Product;
+import com.codegym.model.Product;
 
 import java.util.Comparator;
 

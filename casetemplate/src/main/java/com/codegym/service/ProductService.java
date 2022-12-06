@@ -1,11 +1,13 @@
-package com.codegym;
+package com.codegym.service;
 
-import java.io.*;
+import com.codegym.model.ECategory;
+import com.codegym.model.Product;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class ProductService {
-    private  FileService fileService;
+    private FileService fileService;
     private final String pathProduct = "./data/product.txt";
 
     public ProductService() {
@@ -48,7 +50,9 @@ public class ProductService {
     public List<Product> convertProductLinesToProduct(List<String> productLines) {
         List<Product> products = new ArrayList<>();
         for (String item : productLines) {
+            //"1670310569,Iphone X,12000.0,5,3"
             String [] items = item.split(",");
+            //[1670310569,Iphone X,12000.0,5,3]
             long idProduct = Long.parseLong(items[0]);
             double price = Double.parseDouble(items[2]);
             int quantity = Integer.parseInt(items[3]);

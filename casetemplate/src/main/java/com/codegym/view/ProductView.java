@@ -1,15 +1,19 @@
-package com.codegym;
+package com.codegym.view;
 
+import com.codegym.model.ActionInput;
+import com.codegym.model.ECategory;
+import com.codegym.model.Product;
 import com.codegym.comparator.ComparatorNameDESC;
 import com.codegym.comparator.ComparatorPriceASC;
 import com.codegym.comparator.ComparatorPriceDESC;
 import com.codegym.comparator.CompartorNameASC;
+import com.codegym.service.ProductService;
 
 import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
 
-public class AppMain {
+public class ProductView {
     public static final int ACTIONEDIT = 2;
     private static final int ACTIONADD = 1;
 
@@ -17,16 +21,14 @@ public class AppMain {
     private ProductService productService;
 
 
-    public AppMain() {
+    public ProductView() {
         productService = new ProductService();
-        productService.init();
     }
 
     private static Scanner scanner = new Scanner(System.in);
 
-    public static void main(String[] args) {
 
-        AppMain appMain = new AppMain();
+    public void launch() {
         boolean checkMenuAction = false;
         do {
             System.out.println("Bạn hãy chọn chức năng:");
@@ -39,24 +41,24 @@ public class AppMain {
             int menuAction = Integer.parseInt(scanner.nextLine());
             switch (menuAction) {
                 case 1:
-                    appMain.addProductView();
-                    checkMenuAction = appMain.checkContinueAction();
+                    addProductView();
+                    checkMenuAction = checkContinueAction();
                     break;
                 case 2:
-                    appMain.editProductView();
-                    checkMenuAction = appMain.checkContinueAction();
+                    editProductView();
+                    checkMenuAction = checkContinueAction();
                     break;
                 case 4:
-                    appMain.showProductsView(appMain.productService.getProducts());
-                    checkMenuAction = appMain.checkContinueAction();
+                    showProductsView(productService.getAllProduct());
+                    checkMenuAction = checkContinueAction();
                     break;
                 case 5:
-                    appMain.sortProductView();
-                    checkMenuAction = appMain.checkContinueAction();
+                    sortProductView();
+                    checkMenuAction = checkContinueAction();
                     break;
                 case 6:
-                    appMain.searchProductView();
-                    checkMenuAction = appMain.checkContinueAction();
+                    searchProductView();
+                    checkMenuAction = checkContinueAction();
                     break;
                 default:
                     System.out.println("Chức năng không hợp lệ. Vui long nhập lại");
@@ -105,7 +107,7 @@ public class AppMain {
     }
 
     private void sortByName() {
-        List<Product> products = productService.getProducts();
+        List<Product> products = productService.getAllProduct();
         Comparator<Product> comparatorBy;
         boolean menuSortAction = false;
         do {
@@ -118,12 +120,12 @@ public class AppMain {
                 case 1:
                     comparatorBy = new CompartorNameASC();
                     products.sort(comparatorBy);
-                    showProductsView(productService.getProducts());
+                    showProductsView(productService.getAllProduct());
                     break;
                 case 2:
                     comparatorBy = new ComparatorNameDESC();
                     products.sort(comparatorBy);
-                    showProductsView(productService.getProducts());
+                    showProductsView(productService.getAllProduct());
                     break;
                 default:
                     menuSortAction = true;
@@ -133,7 +135,7 @@ public class AppMain {
     }
 
     private void sortByPrice() {
-        List<Product> products = productService.getProducts();
+        List<Product> products = productService.getAllProduct();
         Comparator<Product> comparatorBy;
         boolean menuSortAction = false;
         do {
@@ -145,12 +147,12 @@ public class AppMain {
                 case 1:
                     comparatorBy = new ComparatorPriceASC();
                     products.sort(comparatorBy);
-                    showProductsView(productService.getProducts());
+                    showProductsView(productService.getAllProduct());
                     break;
                 case 2:
                     comparatorBy = new ComparatorPriceDESC();
                     products.sort(comparatorBy);
-                    showProductsView(productService.getProducts());
+                    showProductsView(productService.getAllProduct());
                     break;
                 default:
                     menuSortAction = true;
@@ -222,7 +224,7 @@ public class AppMain {
 
 
         productService.addProduct(product);
-        showProductsView(productService.getProducts());
+        showProductsView(productService.getAllProduct());
     }
 
     public void editProductView() {
@@ -236,12 +238,12 @@ public class AppMain {
 
         // Về làm chỗ này, do while đó nha
         double price = inputPrice(ActionInput.EDIT);
-        for (Product p : productService.getProducts()) {
+        for (Product p : productService.getAllProduct()) {
             if (p.getId() == id) {
                 p.setPrice(price);
             }
         }
-        showProductsView(productService.getProducts());
+        showProductsView(productService.getAllProduct());
 
     }
 }

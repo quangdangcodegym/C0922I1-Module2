@@ -1,4 +1,4 @@
-package com.codegym;
+package com.codegym.model;
 
 public enum ECategory {
     IPHONE(1),
