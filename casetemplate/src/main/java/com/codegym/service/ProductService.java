@@ -47,6 +47,13 @@ public class ProductService {
 
     }
 
+    public boolean checkRemainProductQuantity(long idProduct, int quantity) {
+        Product product = findProductById(idProduct);
+        if(product.getQuantity() < quantity){
+            return false;
+        }
+        return true;
+    }
     public List<Product> convertProductLinesToProduct(List<String> productLines) {
         List<Product> products = new ArrayList<>();
         for (String item : productLines) {

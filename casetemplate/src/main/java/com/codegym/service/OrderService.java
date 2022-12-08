@@ -1,5 +1,6 @@
 package com.codegym.service;
 
+import com.codegym.model.EOrderStatus;
 import com.codegym.model.Order;
 import com.codegym.model.OrderItem;
 import com.codegym.utils.DateUtils;
@@ -20,6 +21,7 @@ public class OrderService {
     public void createOrder(Order order) {
         List<Order> orders = getAllOrders();
         orders.add(order);
+        //[1670321738,06-12-2022,0.0; 1670321738,06-12-2022,0.0; 1670321738,06-12-2022,0.0]
         List<String> orderLines = convertOrdersToOrderLines(orders);
         fileService.writeData(pathOrder, orderLines);
 
@@ -44,6 +46,8 @@ public class OrderService {
             order.setId(Long.parseLong(items[0]));
             order.setCreateAt(DateUtils.convertStringToDate(items[1]));
             order.setTotal(Double.parseDouble(items[2]));
+            // items[3]
+            order.setOrderStatus(EOrderStatus.findEOrderStatusByName(items[3]));
             List<OrderItem> orderItems = orderItemService.findOrderItemsByOrderId(order.getId());
             order.setOrderItems(orderItems);
             orders.add(order);

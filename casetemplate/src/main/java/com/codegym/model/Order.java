@@ -12,8 +12,10 @@ public class Order {
     private double total;
     private List<OrderItem> orderItems;
 
+    private EOrderStatus orderStatus;
     //New, Checkout, Paid, Failed, Shipped, Delivered, Returned, and Complete.
     // Thêm 1 thuộc tính là trạng thái order: Enum
+
 
     public void addOrderItem(OrderItem orderItem) {
         orderItems.add(orderItem);
@@ -24,6 +26,15 @@ public class Order {
         this.createAt = createAt;
         this.total = total;
     }
+
+    public EOrderStatus getOrderStatus() {
+        return orderStatus;
+    }
+
+    public void setOrderStatus(EOrderStatus orderStatus) {
+        this.orderStatus = orderStatus;
+    }
+
     public Order() {
         orderItems = new ArrayList<>();
     }
@@ -62,6 +73,6 @@ public class Order {
 
     public String toData() {
         //1,06-12-2022,70000
-        return String.format("%s,%s,%s", this.getId(), DateUtils.convertDateToString(this.createAt), this.total);
+        return String.format("%s,%s,%s,%s", this.getId(), DateUtils.convertDateToString(this.createAt), this.total, this.orderStatus);
     }
 }
