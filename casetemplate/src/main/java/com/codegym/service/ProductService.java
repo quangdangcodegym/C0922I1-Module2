@@ -6,7 +6,7 @@ import com.codegym.model.Product;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProductService {
+public class ProductService implements IProductService{
     private FileService fileService;
     private final String pathProduct = "./data/product.txt";
 
@@ -71,6 +71,7 @@ public class ProductService {
         return products;
     }
 
+    @Override
     public Product findProductById(long id) {
         for (Product p : getAllProduct()) {
             if (p.getId() == id) {
@@ -79,7 +80,7 @@ public class ProductService {
         }
         return null;
     }
-
+    @Override
     public void editProduct(long id, Product product) {
         List<Product> products = getAllProduct();
 

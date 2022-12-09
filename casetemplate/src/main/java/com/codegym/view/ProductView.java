@@ -8,10 +8,12 @@ import com.codegym.comparator.ComparatorPriceASC;
 import com.codegym.comparator.ComparatorPriceDESC;
 import com.codegym.comparator.CompartorNameASC;
 import com.codegym.service.ProductService;
+import com.codegym.utils.ValidateUtils;
 
 import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
+import java.util.regex.Pattern;
 
 public class ProductView {
     public static final int ACTIONEDIT = 2;
@@ -49,7 +51,8 @@ public class ProductView {
                     checkMenuAction = checkContinueAction();
                     break;
                 case 4:
-                    showProductsView(productService.getAllProduct());
+                    //showProductsView(productService.getAllProduct());
+                    showProductsViewWithPagging(productService.getAllProduct());
                     checkMenuAction = checkContinueAction();
                     break;
                 case 5:
@@ -179,6 +182,45 @@ public class ProductView {
         }
     }
 
+    public void showProductsViewWithPagging(List<Product> products) {
+        int numberOfPage = 3;
+//        List<Product> products1 = products.subList(0, 3);
+//        List<Product> products2 = products.subList(3, 6);
+//        List<Product> products3 = products.subList(6, 9);
+//        List<Product> products4 = products.subList(9, products.size());
+
+        int pageSize = (int) (Math.ceil(products.size() / numberOfPage));
+
+        for (int i = 0; i <= pageSize; i++) {
+            List<Product> products1;
+            if (i == pageSize) {
+                products1 = products.subList(i * numberOfPage, products.size());
+            }else{
+                products1 = products.subList(i * numberOfPage, (i + 1) * numberOfPage);
+            }
+            for (Product p : products1) {
+                System.out.println(p);
+            }
+            scanner.nextLine();
+
+        }
+    }
+
+    public String inputProductName() {
+        String name;
+        boolean checkInputNameProduct;
+        do {
+            checkInputNameProduct = true;
+            System.out.println("Nhập tên (Phải bắt đầu chữ hoa): ");
+            name = scanner.nextLine();
+            if (ValidateUtils.validateProductName(name)) {
+                checkInputNameProduct = false;
+            }else{
+                System.out.println("Nhập tên chưa đúng định dạng. Vui lòng nhập lại");
+            }
+        }while (checkInputNameProduct);
+        return name;
+    }
     public double inputPrice(ActionInput type) {
         double price = 0.0;
         boolean checkInputPrice = false;
@@ -203,8 +245,8 @@ public class ProductView {
     }
 
     public void addProductView() {
-        System.out.println("Nhập tên: ");
-        String name = scanner.nextLine();
+        String name = inputProductName();
+
         double price = inputPrice(ActionInput.ADD);
 
         System.out.println("Nhập số lượng");

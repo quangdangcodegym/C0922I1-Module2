@@ -55,11 +55,23 @@ public class OrderView {
         } while (checkMenuAction);
     }
 
-    private void chooseOrderByDateView() {
-        System.out.println("Nhập ngày bạn muốn xem: (08-12-2022");
+    private  void chooseOrderByDateView() {
+        System.out.println("Nhập ngày bạn muốn xem: (08-12-2022 07:00");
         String sDate = scanner.nextLine();
         Date date = DateUtils.convertStringToDate(sDate);
 
+        Date startDate = DateUtils.convertStringToDate("08-12-2022 00:00");
+        Date endDate = DateUtils.convertStringToDate("08-12-2022 23:00");
+
+        System.out.println(isWithinRange(date, startDate, endDate));
+    }
+
+    public static void main(String[] args) {
+        OrderView orderView = new OrderView();
+        orderView.chooseOrderByDateView();
+    }
+    public boolean isWithinRange(Date testDate, Date startDate, Date endDate) {
+        return !(testDate.before(startDate) || testDate.after(endDate));
     }
 
     private void createOrderView() {
