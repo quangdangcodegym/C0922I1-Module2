@@ -1,0 +1,9 @@
+Bài tập
+- Sửa sản phẩm theo giá
+- Sửa sản phẩm theo số lượng
+- Xóa sản phẩm
+- Tìm kiếm sản phẩm theo giá
+- Tìm kiếm sản phẩm theo số lượng
+
+Note lại những cái gì hay cần nhớ
+--
