@@ -1,5 +1,6 @@
 package com.codegym;
 
+import com.codegym.model.EMenuContinue;
 import com.codegym.model.ERole;
 import com.codegym.model.User;
 import com.codegym.view.OrderView;
@@ -19,27 +20,6 @@ public class MyStore {
     public static void main(String[] args) throws ParseException {
         MyStore myStore = new MyStore();
         myStore.login();
-
-//        boolean checkActionMenu;
-//        do {
-//            checkActionMenu = true;
-//            System.out.println("Chọn chức năng: ");
-//            System.out.println("1. Order");
-//            System.out.println("2. Product");
-//            int actionMenu = Integer.parseInt(scanner.nextLine());
-//            switch (actionMenu) {
-//                case 1:
-//                    screenView orderView = new OrderView();
-//                    orderView.launch();
-//                    break;
-//                case 2:
-//                    ProductView productView = new ProductView();
-//                    productView.launch();
-//                    break;
-//                default:
-//                    checkActionMenu = false;
-//            }
-//        } while (checkActionMenu);
     }
     public void login() {
         System.out.println("Login");
@@ -82,7 +62,7 @@ public class MyStore {
                     checkMenuUser = false;
                     break;
             }
-            checkMenuUser = screenView.checkContinueAction();
+            checkMenuUser = screenView.checkContinueAction(EMenuContinue.MENU_USER);
         } while (checkMenuUser);
     }
 
@@ -110,8 +90,8 @@ public class MyStore {
                     checkMenuAdmin = false;
                     break;
             }
-
-            checkMenuAdmin = screenView.checkContinueAction();
+            if(!checkMenuAdmin)
+                checkMenuAdmin = screenView.checkContinueAction(EMenuContinue.MENU_ADMIN);
         } while (checkMenuAdmin);
     }
 }

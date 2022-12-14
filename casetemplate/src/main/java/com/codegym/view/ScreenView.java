@@ -1,5 +1,6 @@
 package com.codegym.view;
 
+import com.codegym.model.EMenuContinue;
 import com.codegym.model.User;
 
 import java.util.Scanner;
@@ -8,8 +9,9 @@ public abstract class ScreenView {
     protected Scanner scanner = new Scanner(System.in);
 
     public abstract void launch();
-    public boolean checkContinueAction() {
-        System.out.println("Bạn có muốn tiếp tục hay không Yes(Y)/No(N)");
+    public boolean checkContinueAction(EMenuContinue eMenuContinue) {
+        String strMenuContinue = String.format("Bạn có muốn tiếp tục %s hay không Yes(Y)/No(N)", eMenuContinue.getValue());
+        System.out.println(strMenuContinue);
         String continueAction = scanner.nextLine();
         switch (continueAction) {
             case "Y":

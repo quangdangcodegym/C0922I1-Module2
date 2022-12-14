@@ -7,10 +7,12 @@ import com.codegym.model.OrderItem;
 import com.codegym.model.Product;
 
 import java.io.*;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class FileService {
+
     public <T> void  writeData(String path, List<T> list) {
         try {
             FileWriter fileWriter = new FileWriter(path);
@@ -53,6 +55,36 @@ public class FileService {
             fileReader.close();
         } catch (IOException ioException) {
             ioException.printStackTrace();
+        }
+        return items;
+    }
+
+
+    public <T> List<T> readData(String path, Class<T> cls) {
+        List<T> items = new ArrayList<>();
+        try {
+            FileReader fileReader = new FileReader(path);
+            BufferedReader bufferedReader = new BufferedReader(fileReader);
+
+            String line = null;
+
+            while ((line = bufferedReader.readLine())!=null) {
+                ParseData<T> item = (ParseData<T>) cls.getDeclaredConstructor().newInstance();
+                T temp = item.parseData(line);
+                items.add(temp);
+            }
+            bufferedReader.close();
+            fileReader.close();
+        } catch (IOException ioException) {
+            ioException.printStackTrace();
+        } catch (InstantiationException e) {
+            throw new RuntimeException(e);
+        } catch (IllegalAccessException e) {
+            throw new RuntimeException(e);
+        } catch (InvocationTargetException e) {
+            throw new RuntimeException(e);
+        } catch (NoSuchMethodException e) {
+            throw new RuntimeException(e);
         }
         return items;
     }

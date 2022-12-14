@@ -18,7 +18,7 @@ public class ProductService implements IProductService{
     public List<Product> getAllProduct() {
 //        List<String> productLines = fileService.readData(pathProduct);
 //        List<Product> products = convertProductLinesToProduct(productLines);
-        List<Product> products = fileService.readData(pathProduct, EModel.PRODUCT);
+        List<Product> products = fileService.readData(pathProduct, Product.class);
         return products;
     }
 

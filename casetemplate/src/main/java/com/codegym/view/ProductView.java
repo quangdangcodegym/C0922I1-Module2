@@ -1,9 +1,6 @@
 package com.codegym.view;
 
-import com.codegym.model.EActionInput;
-import com.codegym.model.ECategory;
-import com.codegym.model.ERole;
-import com.codegym.model.Product;
+import com.codegym.model.*;
 import com.codegym.comparator.ComparatorNameDESC;
 import com.codegym.comparator.ComparatorPriceASC;
 import com.codegym.comparator.ComparatorPriceDESC;
@@ -39,28 +36,27 @@ public class ProductView extends ScreenView{
                 System.out.println("Xem danh sách sản phẩm -->:     4");
                 System.out.println("Sap xep san pham -->:           5");
                 System.out.println("Tìm kiếm san pham -->:          6");
+                System.out.println("Quay lại        -->             7");
                 int menuAction = Integer.parseInt(scanner.nextLine());
                 switch (menuAction) {
                     case 1:
                         addProductView();
-                        checkMenuAction = checkContinueAction();
                         break;
                     case 2:
                         editProductView();
-                        checkMenuAction = checkContinueAction();
                         break;
                     case 4:
                         //showProductsView(productService.getAllProduct());
                         showProductsViewWithPagging(productService.getAllProduct());
-                        checkMenuAction = checkContinueAction();
                         break;
                     case 5:
                         sortProductView();
-                        checkMenuAction = checkContinueAction();
                         break;
                     case 6:
                         searchProductView();
-                        checkMenuAction = checkContinueAction();
+                        break;
+                    case 7:
+                        checkMenuAction = false;
                         break;
                     default:
                         System.out.println("Chức năng không hợp lệ. Vui long nhập lại");
@@ -75,20 +71,21 @@ public class ProductView extends ScreenView{
                 System.out.println("Xem danh sách sản phẩm -->:     1");
                 System.out.println("Sap xep san pham -->:           2");
                 System.out.println("Tìm kiếm san pham -->:          3");
+                System.out.println("Quay lại        -->             7");
                 int menuAction = Integer.parseInt(scanner.nextLine());
                 switch (menuAction) {
                     case 1:
                         //showProductsView(productService.getAllProduct());
                         showProductsViewWithPagging(productService.getAllProduct());
-                        checkMenuAction = checkContinueAction();
                         break;
                     case 2:
                         sortProductView();
-                        checkMenuAction = checkContinueAction();
                         break;
                     case 3:
                         searchProductView();
-                        checkMenuAction = checkContinueAction();
+                        break;
+                    case 7:
+                        checkMenuAction = false;
                         break;
                     default:
                         System.out.println("Chức năng không hợp lệ. Vui long nhập lại");

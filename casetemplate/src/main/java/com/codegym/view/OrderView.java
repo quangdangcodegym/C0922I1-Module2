@@ -31,20 +31,22 @@ public class OrderView extends ScreenView{
                 System.out.println("Thêm Order -->:                         2");
                 System.out.println("Cap nhat don hang -->:                  3");
                 System.out.println("Tìm đơn hàng theo ngày -->:             4");
+                System.out.println("Quay lai -->:                           5");
 
                 int menuAction = Integer.parseInt(scanner.nextLine());
                 switch (menuAction) {
                     case 1:
                         showOrderDetailView();
-                        checkMenuAction = checkContinueAction();
                         break;
                     case 2:
                         createOrderView();
-                        checkMenuAction = checkContinueAction();
                         break;
                     case 4:
                         chooseOrderByDateView();
-                        checkMenuAction = checkContinueAction();
+                        break;
+                    case 5:
+                        checkMenuAction = false;
+                        break;
                     default:
                         System.out.println("Chức năng không hợp lệ. Vui long nhập lại");
                         checkMenuAction = true;
@@ -109,7 +111,7 @@ public class OrderView extends ScreenView{
                 order.addOrderItem(orderItem);
             }
             showOrderItemsByOrder(order);
-            checkAddOrderItem = checkContinueAction();
+            checkAddOrderItem = checkContinueAction(EMenuContinue.ADD_ORDER_ITEM);
 
 
 
@@ -146,7 +148,7 @@ public class OrderView extends ScreenView{
             }
             Product product = productService.findProductById(idProduct);
             System.out.printf("Số bạn order vượt quá số lượng (%s) trong kho", product.getQuantity());
-            checkContinueAction = checkContinueAction();
+            checkContinueAction = checkContinueAction(EMenuContinue.ORDER_EDIT_QUANTITY);
         } while (checkContinueAction);
         return -1;
 
