@@ -1,74 +1,103 @@
 package com.codegym.view;
 
-import com.codegym.model.ActionInput;
+import com.codegym.model.EActionInput;
 import com.codegym.model.ECategory;
+import com.codegym.model.ERole;
 import com.codegym.model.Product;
 import com.codegym.comparator.ComparatorNameDESC;
 import com.codegym.comparator.ComparatorPriceASC;
 import com.codegym.comparator.ComparatorPriceDESC;
 import com.codegym.comparator.CompartorNameASC;
+import com.codegym.service.IProductService;
 import com.codegym.service.ProductService;
+import com.codegym.service.ProductServiceCSV;
 import com.codegym.utils.ValidateUtils;
 
 import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
-import java.util.regex.Pattern;
 
-public class ProductView {
-    public static final int ACTIONEDIT = 2;
-    private static final int ACTIONADD = 1;
-
-
-    private ProductService productService;
+public class ProductView extends ScreenView{
+    private IProductService productService;
 
 
     public ProductView() {
-        productService = new ProductService();
+        productService = new ProductServiceCSV();
     }
 
-    private static Scanner scanner = new Scanner(System.in);
 
 
+    @Override
     public void launch() {
-        boolean checkMenuAction = false;
-        do {
-            System.out.println("Bạn hãy chọn chức năng:");
-            System.out.println("Thêm sản phẩm -->:              1");
-            System.out.println("Sửa sản phẩm -->:               2");
-            System.out.println("Xóa sản phẩm -->:               3");
-            System.out.println("Xem danh sách sản phẩm -->:     4");
-            System.out.println("Sap xep san pham -->:           5");
-            System.out.println("Tìm kiếm san pham -->:          6");
-            int menuAction = Integer.parseInt(scanner.nextLine());
-            switch (menuAction) {
-                case 1:
-                    addProductView();
-                    checkMenuAction = checkContinueAction();
-                    break;
-                case 2:
-                    editProductView();
-                    checkMenuAction = checkContinueAction();
-                    break;
-                case 4:
-                    //showProductsView(productService.getAllProduct());
-                    showProductsViewWithPagging(productService.getAllProduct());
-                    checkMenuAction = checkContinueAction();
-                    break;
-                case 5:
-                    sortProductView();
-                    checkMenuAction = checkContinueAction();
-                    break;
-                case 6:
-                    searchProductView();
-                    checkMenuAction = checkContinueAction();
-                    break;
-                default:
-                    System.out.println("Chức năng không hợp lệ. Vui long nhập lại");
-                    checkMenuAction = true;
-                    break;
-            }
-        } while (checkMenuAction);
+        if (this.getUser().getRole() == ERole.ADMIN) {
+            boolean checkMenuAction = false;
+            do {
+                System.out.println("Bạn hãy chọn chức năng:");
+                System.out.println("Thêm sản phẩm -->:              1");
+                System.out.println("Sửa sản phẩm -->:               2");
+                System.out.println("Xóa sản phẩm -->:               3");
+                System.out.println("Xem danh sách sản phẩm -->:     4");
+                System.out.println("Sap xep san pham -->:           5");
+                System.out.println("Tìm kiếm san pham -->:          6");
+                int menuAction = Integer.parseInt(scanner.nextLine());
+                switch (menuAction) {
+                    case 1:
+                        addProductView();
+                        checkMenuAction = checkContinueAction();
+                        break;
+                    case 2:
+                        editProductView();
+                        checkMenuAction = checkContinueAction();
+                        break;
+                    case 4:
+                        //showProductsView(productService.getAllProduct());
+                        showProductsViewWithPagging(productService.getAllProduct());
+                        checkMenuAction = checkContinueAction();
+                        break;
+                    case 5:
+                        sortProductView();
+                        checkMenuAction = checkContinueAction();
+                        break;
+                    case 6:
+                        searchProductView();
+                        checkMenuAction = checkContinueAction();
+                        break;
+                    default:
+                        System.out.println("Chức năng không hợp lệ. Vui long nhập lại");
+                        checkMenuAction = true;
+                        break;
+                }
+            } while (checkMenuAction);
+        }else{
+            boolean checkMenuAction = false;
+            do {
+                System.out.println("Bạn hãy chọn chức năng:");
+                System.out.println("Xem danh sách sản phẩm -->:     1");
+                System.out.println("Sap xep san pham -->:           2");
+                System.out.println("Tìm kiếm san pham -->:          3");
+                int menuAction = Integer.parseInt(scanner.nextLine());
+                switch (menuAction) {
+                    case 1:
+                        //showProductsView(productService.getAllProduct());
+                        showProductsViewWithPagging(productService.getAllProduct());
+                        checkMenuAction = checkContinueAction();
+                        break;
+                    case 2:
+                        sortProductView();
+                        checkMenuAction = checkContinueAction();
+                        break;
+                    case 3:
+                        searchProductView();
+                        checkMenuAction = checkContinueAction();
+                        break;
+                    default:
+                        System.out.println("Chức năng không hợp lệ. Vui long nhập lại");
+                        checkMenuAction = true;
+                        break;
+                }
+            } while (checkMenuAction);
+        }
+
     }
 
     private void searchProductView() {
@@ -164,21 +193,10 @@ public class ProductView {
         } while (menuSortAction);
     }
 
-    public boolean checkContinueAction() {
-        System.out.println("Bạn có muốn tiếp tục hay không Yes(Y)/No(N)");
-        String continueAction = scanner.nextLine();
-        switch (continueAction) {
-            case "Y":
-                return true;
-            case "N":
-                return false;
-        }
-        return false;
-    }
 
     public void showProductsView(List<Product> products) {
         for (Product p : products) {
-            System.out.println(p);
+            System.out.println(p.toView());
         }
     }
 
@@ -199,7 +217,7 @@ public class ProductView {
                 products1 = products.subList(i * numberOfPage, (i + 1) * numberOfPage);
             }
             for (Product p : products1) {
-                System.out.println(p);
+                System.out.println(p.toView());
             }
             scanner.nextLine();
 
@@ -221,7 +239,7 @@ public class ProductView {
         }while (checkInputNameProduct);
         return name;
     }
-    public double inputPrice(ActionInput type) {
+    public double inputPrice(EActionInput type) {
         double price = 0.0;
         boolean checkInputPrice = false;
         do {
@@ -247,7 +265,7 @@ public class ProductView {
     public void addProductView() {
         String name = inputProductName();
 
-        double price = inputPrice(ActionInput.ADD);
+        double price = inputPrice(EActionInput.ADD);
 
         System.out.println("Nhập số lượng");
         int quantity = Integer.parseInt(scanner.nextLine());
@@ -279,7 +297,7 @@ public class ProductView {
         System.out.println("Sửa số lượng:-->    3");
 
         // Về làm chỗ này, do while đó nha
-        double price = inputPrice(ActionInput.EDIT);
+        double price = inputPrice(EActionInput.EDIT);
         for (Product p : productService.getAllProduct()) {
             if (p.getId() == id) {
                 p.setPrice(price);

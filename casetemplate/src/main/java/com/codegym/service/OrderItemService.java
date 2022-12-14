@@ -1,5 +1,6 @@
 package com.codegym.service;
 
+import com.codegym.model.EModel;
 import com.codegym.model.OrderItem;
 
 import java.util.ArrayList;
@@ -25,19 +26,8 @@ public class OrderItemService {
     }
 
     public List<OrderItem> getAllOrderItems() {
-        List<OrderItem> orderItems = new ArrayList<>();
-        List<String> orderItemLines = fileService.readData(pathOrderItem);
-        for (String line : orderItemLines) {
-            //1,1670310569,1,12000.0,2
-            String [] items = line.split(",");
-            OrderItem orderItem = new OrderItem();
-            orderItem.setId(Long.parseLong(items[0]));
-            orderItem.setIdProduct(Long.parseLong(items[1]));
-            orderItem.setIdOrder(Long.parseLong(items[2]));
-            orderItem.setPrice(Double.parseDouble(items[3]));
-            orderItem.setAmount(Integer.parseInt(items[4]));
-            orderItems.add(orderItem);
-        }
+        List<OrderItem> orderItems = fileService.readData(pathOrderItem, EModel.ORDERITEM);
+
         return orderItems;
     }
 
@@ -45,15 +35,8 @@ public class OrderItemService {
         List<OrderItem> allOrderItems = getAllOrderItems();
         allOrderItems.addAll(orderItem);
 
-        List<String> allOrderItemLines = convertOrderItemsToOrderItemLines(allOrderItems);
-        fileService.writeData(pathOrderItem, allOrderItemLines);
+        fileService.writeData(pathOrderItem, allOrderItems);
     }
 
-    private List<String> convertOrderItemsToOrderItemLines(List<OrderItem> allOrderItems) {
-        List<String> orderItemLines = new ArrayList<>();
-        for (OrderItem orderItem : allOrderItems) {
-            orderItemLines.add(orderItem.toData());
-        }
-        return orderItemLines;
-    }
+
 }

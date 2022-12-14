@@ -1,17 +1,16 @@
 package com.codegym.service;
 
-import com.codegym.model.ECategory;
 import com.codegym.model.EModel;
 import com.codegym.model.Product;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProductService implements IProductService{
+public class ProductServiceCSV implements IProductService{
     private FileService fileService;
     private final String pathProduct = "./data/product.txt";
 
-    public ProductService() {
+    public ProductServiceCSV() {
         fileService = new FileService();
     }
 
@@ -87,5 +86,4 @@ public class ProductService implements IProductService{
         fileService.writeData(pathProduct, products);
 
     }
-
 }

@@ -1,6 +1,6 @@
 package com.codegym.model;
 
-public class OrderItem {
+public class OrderItem implements ParseData<OrderItem> {
     private long id;
     private long idProduct;
     private long idOrder;
@@ -61,8 +61,23 @@ public class OrderItem {
         this.idOrder = idOrder;
     }
 
-    public String toData() {
-        //1,1670310569,1,10000.0,2
+
+
+    @Override
+    public String toString() {
+        //1670491174,1670310571,1670491168,10000.0,20
         return String.format("%s,%s,%s,%s,%s", this.id, this.idProduct, this.idOrder, this.price, this.amount);
+    }
+
+    @Override
+    public OrderItem parseData(String line) {
+        String [] items = line.split(",");
+        OrderItem orderItem = new OrderItem();
+        orderItem.setId(Long.parseLong(items[0]));
+        orderItem.setIdProduct(Long.parseLong(items[1]));
+        orderItem.setIdOrder(Long.parseLong(items[2]));
+        orderItem.setPrice(Double.parseDouble(items[3]));
+        orderItem.setAmount(Integer.parseInt(items[4]));
+        return orderItem;
     }
 }

@@ -1,9 +1,6 @@
 package com.codegym.view;
 
-import com.codegym.model.EOrderStatus;
-import com.codegym.model.Order;
-import com.codegym.model.OrderItem;
-import com.codegym.model.Product;
+import com.codegym.model.*;
 import com.codegym.service.OrderItemService;
 import com.codegym.service.OrderService;
 import com.codegym.service.ProductService;
@@ -12,47 +9,51 @@ import com.codegym.utils.DateUtils;
 import java.util.Date;
 import java.util.Scanner;
 
-public class OrderView {
+public class OrderView extends ScreenView{
     public OrderView() {
         productService = new ProductService();
         orderService = new OrderService();
         orderItemService = new OrderItemService();
     }
-    private Scanner scanner = new Scanner(System.in);
+
     private ProductService productService;
     private OrderService orderService;
     private OrderItemService orderItemService;
 
 
+    @Override
     public void launch() {
+        if(this.getUser().getRole()== ERole.ADMIN){
+            boolean checkMenuAction = false;
+            do {
+                System.out.println("Bạn hãy chọn chức năng:");
+                System.out.println("Xem danh sách Order -->:                1");
+                System.out.println("Thêm Order -->:                         2");
+                System.out.println("Cap nhat don hang -->:                  3");
+                System.out.println("Tìm đơn hàng theo ngày -->:             4");
 
-        boolean checkMenuAction = false;
-        do {
-            System.out.println("Bạn hãy chọn chức năng:");
-            System.out.println("Xem danh sách Order -->:                1");
-            System.out.println("Thêm Order -->:                         2");
-            System.out.println("Cap nhat don hang -->:                  3");
-            System.out.println("Tìm đơn hàng theo ngày -->:             4");
+                int menuAction = Integer.parseInt(scanner.nextLine());
+                switch (menuAction) {
+                    case 1:
+                        showOrderDetailView();
+                        checkMenuAction = checkContinueAction();
+                        break;
+                    case 2:
+                        createOrderView();
+                        checkMenuAction = checkContinueAction();
+                        break;
+                    case 4:
+                        chooseOrderByDateView();
+                        checkMenuAction = checkContinueAction();
+                    default:
+                        System.out.println("Chức năng không hợp lệ. Vui long nhập lại");
+                        checkMenuAction = true;
+                        break;
+                }
+            } while (checkMenuAction);
+        }
 
-            int menuAction = Integer.parseInt(scanner.nextLine());
-            switch (menuAction) {
-                case 1:
-                    showOrderDetailView();
-                    checkMenuAction = checkContinueAction();
-                    break;
-                case 2:
-                    createOrderView();
-                    checkMenuAction = checkContinueAction();
-                    break;
-                case 4:
-                    chooseOrderByDateView();
-                    checkMenuAction = checkContinueAction();
-                default:
-                    System.out.println("Chức năng không hợp lệ. Vui long nhập lại");
-                    checkMenuAction = true;
-                    break;
-            }
-        } while (checkMenuAction);
+
     }
 
     private  void chooseOrderByDateView() {
@@ -66,10 +67,7 @@ public class OrderView {
         System.out.println(isWithinRange(date, startDate, endDate));
     }
 
-    public static void main(String[] args) {
-        OrderView orderView = new OrderView();
-        orderView.chooseOrderByDateView();
-    }
+
     public boolean isWithinRange(Date testDate, Date startDate, Date endDate) {
         return !(testDate.before(startDate) || testDate.after(endDate));
     }
@@ -193,15 +191,5 @@ public class OrderView {
         System.out.println("                        Total: " + order.getTotal());
     }
 
-    public boolean checkContinueAction() {
-        System.out.println("Bạn có muốn tiếp tục hay không Yes(Y)/No(N)");
-        String continueAction = scanner.nextLine();
-        switch (continueAction) {
-            case "Y":
-                return true;
-            case "N":
-                return false;
-        }
-        return false;
-    }
+
 }

@@ -1,5 +1,5 @@
 package com.codegym.model;
 
-public enum ActionInput {
+public enum EActionInput {
     ADD, EDIT, DELETE
 }

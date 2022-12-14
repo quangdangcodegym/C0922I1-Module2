@@ -1,6 +1,6 @@
 package com.codegym.model;
 
-public class Product {
+public class Product implements ParseData<Product> {
     private long id;
     private String name;
     private double price;
@@ -67,11 +67,29 @@ public class Product {
 
     @Override
     public String toString() {
-        return String.format("%-10s %-20s %-10s %-10s %-10s",
+        //1670313569,Iphone X,10000.0,5,3
+        return String.format("%s,%s,%s,%s,%s",
                 this.id, this.name, this.price, this.quantity, category);
     }
     public String toData() {
         //1670310571,Iphone 12,12000.0,5,1
         return String.format("%s,%s,%s,%s,%s", this.id, this.name, this.price,this.quantity,category.getId() );
+    }
+
+    public String toView() {
+        return String.format("%-10s|%-20s|%-10s|%-5s|%-5s",
+                this.id, this.name, this.price, this.quantity, category);
+    }
+
+    @Override
+    public Product parseData(String line) {
+        String [] items = line.split(",");
+
+        long idProduct = Long.parseLong(items[0]);
+        double price = Double.parseDouble(items[2]);
+        int quantity = Integer.parseInt(items[3]);
+        ECategory eCategory = ECategory.valueOf(items[4]);
+        Product product = new Product(idProduct, items[1], price, quantity,eCategory );
+        return product;
     }
 }
