@@ -1,10 +1,10 @@
-package com.codegym.thread;
+package com.codegym.thread.runable;
 
 public class PrintChar implements Runnable{
     private char charToPrint;
     private int number;
 
-    PrintChar(char c, int number) {
+    public PrintChar(char c, int number) {
         this.number = number;
         this.charToPrint = c;
     }

@@ -24,14 +24,6 @@ public abstract class ScreenView {
 
     private User user;
 
-    public Scanner getScanner() {
-        return scanner;
-    }
-
-    public void setScanner(Scanner scanner) {
-        this.scanner = scanner;
-    }
-
     public User getUser() {
         return user;
     }

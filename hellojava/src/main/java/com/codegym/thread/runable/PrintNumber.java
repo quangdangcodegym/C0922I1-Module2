@@ -1,4 +1,4 @@
-package com.codegym.thread;
+package com.codegym.thread.runable;
 
 public class PrintNumber implements Runnable{
     private int number;
