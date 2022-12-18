@@ -31,7 +31,7 @@ public class OrderView extends ScreenView{
                 System.out.println("Xem Order -->:                          1");
                 System.out.println("Thêm Order -->:                         2");
                 System.out.println("Cap nhat don hang -->:                  3");
-                System.out.println("Tìm đơn hàng theo ngày -->:             4");
+                System.out.println("Tìm đơn hàng-->:                        4");
                 System.out.println("Quay lai -->:                           5");
                 System.out.print("Nhập: ");
 
@@ -44,7 +44,7 @@ public class OrderView extends ScreenView{
                         createOrderView();
                         break;
                     case 4:
-                        chooseOrderByDateView();
+                        searchOrderView();
                         break;
                     case 5:
                         checkMenuAction = false;
@@ -60,7 +60,51 @@ public class OrderView extends ScreenView{
 
     }
 
-    private  void chooseOrderByDateView() {
+    private void searchOrderView() {
+        boolean checkActionMenuSearchOrder = false;
+        do {
+            checkActionMenuSearchOrder = false;
+            System.out.println("Tìm kiếm order theo: ");
+            System.out.println("Tìm kiếm theo tên:-->              1");
+            System.out.println("Tìm kiếm theo ngày:-->             2");
+            try {
+                int actionMenuSearchOrder = Integer.parseInt(scanner.nextLine());
+                switch (actionMenuSearchOrder) {
+                    case 1:
+                        searchOrderByNameCustomerView();
+                        break;
+                    case 2:
+                        searchOrderByDateView();
+                        break;
+                    default:
+                        checkActionMenuSearchOrder = true;
+
+                }
+            } catch (NumberFormatException numberFormatException) {
+                System.out.println("Nhập sai. Vui lòng nhập lại");
+                checkActionMenuSearchOrder = true;
+            }
+        } while (checkActionMenuSearchOrder);
+
+    }
+
+    private void searchOrderByNameCustomerView() {
+        System.out.println("Nhập tên khách hàng: ");
+        String customerName = scanner.nextLine();
+        List<Order> orderList = orderService.searchOrderByCustomerName(customerName);
+        showOrderList(orderList);
+    }
+
+    private void showOrderList(List<Order> orderList) {
+        String strOrderHeader = String.format("%-10s|%-20s|%-10s|%-20s|%-10s", "ID order", "Tên khách hàng", "Số tiền", "Ngày đặt", "Trạng thái");
+        System.out.println(strOrderHeader);
+        for (Order order : orderList) {
+            String strOrder = String.format("%-10s|%-20s|%-10s|%-20s|%-10s", order.getId(), order.getCustomerName(), order.getTotal(), DateUtils.convertDateToString(order.getCreateAt()), order.getOrderStatus());
+            System.out.println(strOrder);
+        }
+    }
+
+    private  void searchOrderByDateView() {
         System.out.println("Nhập ngày bạn muốn xem: (08-12-2022 07:00");
         String sDate = scanner.nextLine();
         Date date = DateUtils.convertStringToDate(sDate);
@@ -186,12 +230,7 @@ public class OrderView extends ScreenView{
     }
     public void showOrderView() {
         List<Order> orderList = orderService.getAllOrders();
-        String strOrderHeader = String.format("%-10s|%-20s|%-10s|%-20s|%-10s", "ID order", "Tên khách hàng", "Số tiền", "Ngày đặt", "Trạng thái");
-        System.out.println(strOrderHeader);
-        for (Order order : orderList) {
-            String strOrder = String.format("%-10s|%-20s|%-10s|%-20s|%-10s", order.getId(), order.getCustomerName(), order.getTotal(), DateUtils.convertDateToString(order.getCreateAt()), order.getOrderStatus());
-            System.out.println(strOrder);
-        }
+        showOrderList(orderList);
     }
     public void showOrderDetailView() {
         showOrderView();

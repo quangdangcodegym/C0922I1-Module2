@@ -1,9 +1,6 @@
 package com.codegym.service;
 
-import com.codegym.model.EModel;
-import com.codegym.model.EOrderStatus;
-import com.codegym.model.Order;
-import com.codegym.model.OrderItem;
+import com.codegym.model.*;
 import com.codegym.repository.OrderItemRepository;
 import com.codegym.repository.OrderRepository;
 import com.codegym.utils.DateUtils;
@@ -29,5 +26,18 @@ public class OrderService {
 
     public Order getOrderById(long idOrder) {
         return orderRepository.find(idOrder);
+    }
+
+    public List<Order> searchOrderByCustomerName(String customerName) {
+        ISearch<Order> orderISearch = new ISearch<Order>() {
+            @Override
+            public boolean searchByName(Order item, String name) {
+                if (item.getCustomerName().toUpperCase().contains(name.toUpperCase())) {
+                    return true;
+                }
+                return false;
+            }
+        };
+        return orderRepository.searchBy(orderISearch, customerName);
     }
 }

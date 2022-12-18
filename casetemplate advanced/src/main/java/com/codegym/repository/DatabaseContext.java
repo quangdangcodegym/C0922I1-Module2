@@ -1,9 +1,7 @@
 package com.codegym.repository;
 
 import com.codegym.model.*;
-import com.codegym.service.FileService;
 
-import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,11 +34,10 @@ public abstract class DatabaseContext<T> {
         fileService.writeData(path, items);
 
     }
-    public List<T> searchByName(String name){
+    public List<T> searchBy(ISearch<T> iSearch, String name){
         List<T> items = new ArrayList<>();
         for (T p : getAll()) {
-            ISearch<T> iSearch = (ISearch<T>) p;
-            if (iSearch.searchByName(name)) {
+            if (iSearch.searchByName(p, name)) {
                 items.add(p);
             }
         }

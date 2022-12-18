@@ -1,5 +1,5 @@
 package com.codegym.model;
 
 public interface ISearch<T> {
-    boolean searchByName(String name);
+    boolean searchByName(T item, String name);
 }

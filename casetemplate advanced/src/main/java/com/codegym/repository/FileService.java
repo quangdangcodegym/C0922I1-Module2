@@ -1,4 +1,4 @@
-package com.codegym.service;
+package com.codegym.repository;
 
 import com.codegym.model.*;
 

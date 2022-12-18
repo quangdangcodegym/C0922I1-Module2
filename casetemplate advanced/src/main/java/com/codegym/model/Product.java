@@ -1,6 +1,6 @@
 package com.codegym.model;
 
-public class Product implements IModel<Product>, ISearch<Product> {
+public class Product implements IModel<Product>{
     private long id;
     private String name;
     private double price;
@@ -31,6 +31,9 @@ public class Product implements IModel<Product>, ISearch<Product> {
         this.quantity = objNew.getQuantity();
     }
 
+    private void tessttttttttttttttttt() {
+
+    }
     public void setId(long id) {
         this.id = id;
     }
@@ -102,11 +105,5 @@ public class Product implements IModel<Product>, ISearch<Product> {
         return product;
     }
 
-    @Override
-    public boolean searchByName(String name) {
-        if (this.getName().toUpperCase().contains(name.toUpperCase())) {
-            return true;
-        }
-        return false;
-    }
+
 }

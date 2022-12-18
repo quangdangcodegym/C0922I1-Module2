@@ -16,6 +16,8 @@ public enum EMenuContinue {
     MENU_USER("Menu user"),
     ORDER_EDIT_QUANTITY("Sửa số lượng"),
 
+    ORDER_SEARCH("Tìm kiếm order"),
+
 
     CONTINUE("tiếp tục"),
     CANCEL("hủy");

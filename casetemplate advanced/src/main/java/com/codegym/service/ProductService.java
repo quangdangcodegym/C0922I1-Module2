@@ -2,6 +2,7 @@ package com.codegym.service;
 
 import com.codegym.model.ECategory;
 import com.codegym.model.EModel;
+import com.codegym.model.ISearch;
 import com.codegym.model.Product;
 import com.codegym.repository.ProductRepository;
 
@@ -20,7 +21,16 @@ public class ProductService implements IProductService{
     }
 
     public List<Product> searchByName(String nameSearch) {
-        return productRepository.searchByName(nameSearch);
+        ISearch<Product> productISearchName = new ISearch<Product>() {
+            @Override
+            public boolean searchByName(Product item, String name) {
+                if (item.getName().toUpperCase().contains(name.toUpperCase())) {
+                    return true;
+                }
+                return false;
+            }
+        };
+        return productRepository.searchBy(productISearchName, nameSearch);
     }
     public void addProduct(Product product) {
         productRepository.add(product);

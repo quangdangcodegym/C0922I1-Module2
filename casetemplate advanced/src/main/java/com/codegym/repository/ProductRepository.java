@@ -10,10 +10,4 @@ public class ProductRepository extends DatabaseContext<Product> {
         super(Product.class);
         path = "./data/product.txt";
     }
-//    @Override
-//    public List<Product> getAll() {
-//        return fileService.readData(path, Product.class);
-//    }
-
-
 }
