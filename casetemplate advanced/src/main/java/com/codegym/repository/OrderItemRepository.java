@@ -14,10 +14,5 @@ public class OrderItemRepository extends DatabaseContext<OrderItem> {
         path = "./data/orderitem.txt";
     }
 
-    public void createOrderItem(List<OrderItem> orderItem) {
-        List<OrderItem> allOrderItems = getAll();
-        allOrderItems.addAll(orderItem);
 
-        addList(allOrderItems);
-    }
 }

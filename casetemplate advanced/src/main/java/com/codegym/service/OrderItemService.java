@@ -30,7 +30,9 @@ public class OrderItemService {
     }
 
     public void createOrderItem(List<OrderItem> orderItem) {
-        orderItemRepository.createOrderItem(orderItem);
+        List<OrderItem> allOrderItems = orderItemRepository.getAll();
+        allOrderItems.addAll(orderItem);
+        orderItemRepository.addList(allOrderItems);
     }
 
 

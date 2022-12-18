@@ -18,7 +18,7 @@ public class OrderService {
 
     public void createOrder(Order order) {
         orderRepository.add(order);
-        orderItemRepository.createOrderItem(order.getOrderItems());
+        orderItemRepository.addList(order.getOrderItems());
     }
     public List<Order> getAllOrders() {
         return orderRepository.getAll();
